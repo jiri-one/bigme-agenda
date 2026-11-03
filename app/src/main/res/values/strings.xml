@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Bigme Agenda</string>
+    <string name="intro">Kalendář na spořiči Bigme. Obrázek má nahoře volný prostor pro hodiny telefonu.</string>
+    <string name="url_label">Úplná HTTPS adresa kalendáře</string>
+    <string name="url_hint">https://calendar.example.com/user/calendar/</string>
+    <string name="user_label">Uživatelské jméno</string>
+    <string name="password_label">Heslo</string>
+    <string name="password_hint">Zadejte heslo</string>
+    <string name="password_saved">Při stejné adrese a jménu lze ponechat prázdné</string>
+    <string name="save">Uložit a načíst</string>
+    <string name="refresh">Obnovit</string>
+    <string name="bigme_settings">Nastavení spořiče Bigme</string>
+    <string name="setup">V nastavení Bigme vyberte styl Obrázek (Picture), označte pouze vytvořený soubor ve složce Pictures/BigmeAgenda a vypněte ořez (Crop wallpaper). Přesný název souboru je ve stavu výše. Zapněte nativní hodiny s obnovou po minutě. U položky Text display zvolte Do not show. Úpravy a připomínky dál obstará vaše kalendářová aplikace.</string>
+    <string name="privacy">Názvy událostí budou viditelné v obrázku i na zamčeném telefonu. Aplikace kalendář pouze čte. Uložené přihlašovací údaje a události jsou šifrované; obrázek je ve sdílené složce.</string>
+    <string name="timing">Síťová obnova přibližně každých 30 minut. Z cache se agenda obnovuje také kolem začátků, konců a půlnoci. Úsporný režim může vše odložit. Obnovu e-ink displeje musí zajistit Bigme.</string>
+    <string name="status_unconfigured">Nejdřív uložte přihlášení ke kalendáři.</string>
+    <string name="status_waiting">Čeká na síť a spuštění obnovy…</string>
+    <string name="status_fetching">Načítám kalendář…</string>
+    <string name="status_updated">Agenda byla aktualizovaná.</string>
+    <string name="status_unchanged">Agenda se nezměnila; obrázek zůstal nedotčený.</string>
+    <string name="status_auth">Přístup zamítnut. Ověřte jméno, heslo a právo číst kalendář. Poslední agenda zůstává.</string>
+    <string name="status_redirect">Server přesměrovává. Zadejte přímo konečnou HTTPS adresu kolekce; přihlášení se nepřeposílá.</string>
+    <string name="status_http">Server nevrátil úplnou odpověď CalDAV 207. Poslední agenda zůstává.</string>
+    <string name="status_size">Odpověď překročila bezpečný limit. Poslední agenda zůstává.</string>
+    <string name="status_xml">Odpověď CalDAV je neplatná nebo neúplná. Poslední agenda zůstává.</string>
+    <string name="status_ics">Kalendář obsahuje neplatná data nebo neznámé časové pásmo. Poslední agenda zůstává.</string>
+    <string name="status_expansion">Odpověď serveru obsahuje nerozvinuté opakování nebo definice časových pásem (VTIMEZONE). Poslední agenda zůstává.</string>
+    <string name="status_storage">Uložení nebo dešifrování se nezdařilo. Ověřte volné místo; při ztrátě klíče zadejte heslo znovu.</string>
+    <string name="status_network">Připojení nebo ověření TLS se nezdařilo. Poslední agenda zůstává a cache se může dál překreslovat.</string>
+    <string name="status_config">Zadejte HTTPS adresu kolekce končící lomítkem, bez hesla či parametrů v URL, jméno a heslo.</string>
+    <string name="status_settings">Nastavení spořiče není dostupné. Otevřete je ručně v nastavení Bigme.</string>
+    <string name="last_success">Poslední načtení: %1$s</string>
+    <string name="output_file">Obrázek: %1$s</string>
+</resources>

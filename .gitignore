@@ -1,0 +1,7 @@
+.ai/
+private/
+local.properties
+.gradle/
+**/build/
+*.iml
+.idea/

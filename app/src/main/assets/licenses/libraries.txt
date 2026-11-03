@@ -1,0 +1,12 @@
+Bigme Agenda — Copyright (C) 2026 Jiří Němec — GPL-3.0-or-later; BigmeAgenda-GPL-3.0.txt.
+
+Knihovny použité v Bigme Agenda
+
+biweekly 0.6.8 — Michael Angstadt — BSD 2-Clause; text biweekly.license.txt.
+vinnie 2.0.2 — Michael Angstadt — text vinnie.txt.
+Kód převzatý v biweekly z Apache Commons Codec a Google RFC 2445 — přiložené licenční texty.
+AndroidX / WorkManager — The Android Open Source Project — Apache License 2.0.
+OkHttp 4.12.0 a Okio — Square, Inc. — Apache License 2.0.
+Kotlin a kotlinx.coroutines — JetBrains s.r.o. a přispěvatelé — Apache License 2.0.
+Guava / ListenableFuture — Google, Inc. — Apache License 2.0.
+Oznámení pro Public Suffix List je v publicsuffix-NOTICE.txt a okhttp3/internal/publicsuffix/NOTICE.

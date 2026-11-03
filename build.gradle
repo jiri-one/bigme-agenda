@@ -1,0 +1,2 @@
+plugins { id 'com.android.application' version '8.13.1' apply false }
+layout.buildDirectory = layout.projectDirectory.dir('.ai/build/root')
