@@ -2,6 +2,8 @@
 
 A Czech-language Android app that turns one CalDAV calendar into a seven-day PNG agenda for the **Bigme HiBreak** screensaver. Bigme draws the clock; the app updates the agenda. Your usual calendar app handles editing and reminders. Google Calendar and DAVx⁵ are not required.
 
+Bigme's own calendar on the screensaver cannot show such a calendar: it lists at most two items from Bigme's calendar app, which keeps its own tasks and talks to Google Calendar directly, so calendars that DAVx⁵ syncs into Android never reach it.
+
 ## Requirements
 
 - **HiBreak, Android 14, 824 × 1648 px**, with `com.xrz.standby` 1.13.13. The image size and space reserved for the clock are fixed; other models and firmware are untested.
