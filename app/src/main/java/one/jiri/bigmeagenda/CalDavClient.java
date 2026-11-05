@@ -30,7 +30,7 @@ public final class CalDavClient {
     }
     public List<String> fetch(CalendarConfig config, Instant from, Instant until) throws IOException {
         Request request = new Request.Builder().url(config.url)
-                .header("User-Agent", "BigmeAgenda/1.0 (Android; CalDAV)")
+                .header("User-Agent", "BigmeAgenda/1.2 (Android; CalDAV)")
                 .header("Authorization", Credentials.basic(config.user, config.password, StandardCharsets.UTF_8))
                 .header("Depth", "1").header("Accept", "application/xml, text/xml")
                 .method("REPORT", RequestBody.create(report(from, until), MediaType.get("application/xml; charset=utf-8")))

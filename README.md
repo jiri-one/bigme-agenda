@@ -14,13 +14,16 @@ A Czech-language Android app that turns one CalDAV calendar into a seven-day PNG
 2. Enter the **full collection URL**, for example `https://calendar.example.com/user/calendar/`, your username and password. Use the final HTTPS URL ending in `/`; redirects, credentials in the URL and query parameters are rejected. Press **Uložit a načíst** (Save and load).
 3. After a successful load, open **Nastavení spořiče Bigme** (Bigme screensaver settings). Choose **Picture**, select only the generated file in `Pictures/BigmeAgenda`, and turn **Crop wallpaper off**. The app shows the exact filename, normally `agenda.png`.
 4. **Enable Bigme's native clock and a one-minute clock refresh.** The native refresh reloads the changed image. Keep **Text display: Do not show**. Picture mode has its own fixed clock size; the larger clocks from Bigme's calendar mode are unavailable here.
-5. Put the phone to sleep and check the panel. **Obnovit** (Refresh) requests a calendar fetch; the app shows the last successful fetch time.
+5. In Android **Settings → Background App Refresh** (MediaTek DuraSpeed), enable the switch for **Bigme Agenda**. Leave the global DuraSpeed switch enabled. See the background settings below for the additional Android exemptions used on the tested phone.
+6. Put the phone to sleep and check the panel. **Obnovit** (Refresh) requests a calendar fetch; the app shows the last successful fetch time.
 
 A blank password field keeps the saved password only while the URL and username remain unchanged. Enter the password again when changing either. After reinstalling, Android may choose a filename such as `agenda (1).png`; select the new file shown by the app. Normal updates preserve the same MediaStore row, URI and path.
 
 ## Updates and limits
 
-The agenda includes today and six following local calendar days, timed and all-day events, and ongoing events. Finished events disappear. Long titles use at most two lines; overflow is counted. The upper 420 pixels stay free for Bigme's clock. Local events and edits that your calendar app has not uploaded to CalDAV will not appear.
+The agenda includes today and six following local calendar days, timed and all-day events, and ongoing events. Finished events disappear. A Monday-to-Sunday strip shows the current week, with today highlighted. The list can extend into the following week. Event titles use bold 60 px text, with their time on a separate 44 px line. Long titles use at most two lines; overflow is counted. The upper 420 pixels stay free for Bigme's clock. Local events and edits that your calendar app has not uploaded to CalDAV will not appear.
+
+Bigme draws its notification cards above the picture, so they can cover the agenda. To hide these cards, open the top-right menu in Bigme's screensaver settings and turn off **Show lock screen notification**. This controls Bigme's screensaver cards; it does not disable normal Android notifications or calendar reminders. The PNG cannot rearrange the cards.
 
 Calendar fetches and cached redraws are scheduled about every **30 minutes**, with additional cached redraws around event starts, ends and local midnight. **Android Doze and manufacturer power saving can delay them.** Exact update times are not guaranteed. The app has no minute alarm, notification service, reminders or clock of its own. Bigme refreshes its clock independently. Open the app again after force-stopping it.
 
@@ -30,9 +33,27 @@ Saving a different URL or username clears the cached events. The previous PNG an
 
 The server must expand recurrence rules and exceptions. Expanded responses must omit `VTIMEZONE` definitions; these are rejected before the calendar library interprets them. Unexpanded rules, unknown time zones, malformed calendar data and incomplete CalDAV responses are reported as errors rather than an empty calendar. Responses are bounded to 2 MiB after decompression and 4,000 occurrences.
 
-Existing-image writes through MediaStore are **not atomic for Bigme's direct file reader**. A reader can briefly encounter an incomplete write; the app keeps a private last-good copy for recovery.
+Existing-image writes through MediaStore are **not atomic for Bigme's direct file reader**. A reader can briefly encounter an incomplete write; the app keeps a private last-good copy for recovery. Updates keep the existing image published. Only a newly created image is hidden as pending until its first write finishes.
 
-An earlier version was verified on the phone for real calendar loading, stable-file updates, unchanged-output handling, and the sleeping panel with Bigme's native clock. The latest calendar-parsing and scheduling changes have passed automated tests but have not yet been installed or tested on the phone. Restart persistence, long-term battery use and update timing in Doze remain untested.
+The version 1.1 repair was verified on a HiBreak with real CalDAV loading, stable-file updates, unchanged-output handling, and the sleeping panel with Bigme's native clock. The version 1.2 week strip was also confirmed on the panel. A controlled background job completed while the phone was asleep. Long-term battery use, restart persistence and ordinary update timing during prolonged idle remain untested.
+
+## Background settings and recovery
+
+On the tested HiBreak, **Background App Refresh** is DuraSpeed's per-app allowlist. Enable Bigme Agenda there and recheck it after an app update. The phone also has these two exemptions, set through an authorized ADB connection:
+
+```sh
+adb shell dumpsys deviceidle whitelist +one.jiri.bigmeagenda
+adb shell cmd appops set one.jiri.bigmeagenda RUN_ANY_IN_BACKGROUND allow
+```
+
+These settings apply only to Bigme Agenda and leave global power management enabled. They reduce background restrictions but do not guarantee exact scheduling. A force-stopped app must still be opened again.
+
+If Bigme shows its stock logo instead of the agenda, open Bigme Agenda and press **Obnovit**. Check that the filename shown by the app is still the single image selected in Picture mode. Version 1.0 temporarily marked an existing image as pending during every update. If its process stopped at that point, Android hid and renamed the selected file. Version 1.1 and later avoid that pending state for existing images and recover an already hidden image from the private last-good copy on the next successful app run.
+
+## Recent changes
+
+- **1.2:** larger event titles, times below titles, and a week strip inspired by KashCal's agenda layout. The reserved area for Bigme's native clock is unchanged.
+- **1.1:** existing images stay published during updates, with recovery for a pending image left by an interrupted older update. Background setup is documented above.
 
 ## Privacy
 

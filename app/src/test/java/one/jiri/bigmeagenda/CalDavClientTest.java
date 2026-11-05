@@ -37,7 +37,7 @@ public class CalDavClientTest {
         assertTrue(client.fetch(config(), from, until).isEmpty());
         RecordedRequest request = server.takeRequest(1, TimeUnit.SECONDS);
         assertNotNull(request); assertEquals("REPORT", request.getMethod()); assertEquals("1", request.getHeader("Depth"));
-        assertEquals("BigmeAgenda/1.0 (Android; CalDAV)", request.getHeader("User-Agent"));
+        assertEquals("BigmeAgenda/1.2 (Android; CalDAV)", request.getHeader("User-Agent"));
         String body = request.getBody().readUtf8();
         assertTrue(body.contains("<c:expand start=\"20261103T000000Z\" end=\"20261110T000000Z\"/>"));
         assertTrue(body.contains("<c:time-range start=\"20261103T000000Z\" end=\"20261110T000000Z\"/>"));

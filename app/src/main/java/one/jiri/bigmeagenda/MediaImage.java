@@ -37,6 +37,7 @@ public final class MediaImage {
     }
     public boolean publish(byte[] png) throws IOException {
         Uri uri = find();
+        if (uri != null && isPending(uri)) save(prefs.edit().putBoolean("dirty", true));
         if (uri != null && prefs.getBoolean("dirty", false) && lastGood.getBaseFile().exists()) {
             write(uri, lastGood.readFully());
             finish(uri);
@@ -58,9 +59,7 @@ public final class MediaImage {
             remember(uri, name);
         }
         save(prefs.edit().putBoolean("dirty", true));
-        ContentValues pending = new ContentValues();
-        pending.put(MediaStore.Images.Media.IS_PENDING, 1);
-        if (resolver.update(uri, pending, null, null) != 1) throw new IOException("media pending");
+        // Pending updates hide the selected path if this process is killed.
         try {
             write(uri, png);
             if (!Arrays.equals(digest, currentHash(uri))) throw new IOException("media verify");
@@ -114,6 +113,12 @@ public final class MediaImage {
         }
     }
     private static Uri collection() { return MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY); }
+    private boolean isPending(Uri uri) throws IOException {
+        try (Cursor c = resolver.query(uri, new String[]{MediaStore.Images.Media.IS_PENDING}, null, null, null)) {
+            if (c == null || !c.moveToFirst()) throw new IOException("media state");
+            return c.getInt(0) != 0;
+        }
+    }
     private byte[] currentHash(Uri uri) throws IOException {
         try (InputStream in = resolver.openInputStream(uri)) {
             if (in == null) return new byte[0];
